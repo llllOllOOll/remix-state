@@ -23,17 +23,7 @@ export default function App() {
         <Meta />
         <Links />
       </head>
-      <body
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          placeContent: "center",
-          alignItems: "center",
-          height: "100vh",
-          fontFamily: "sans-serif",
-        }}
-      >
-        <MainMenu />
+      <body>
         <Outlet />
         <ScrollRestoration />
         <Scripts />

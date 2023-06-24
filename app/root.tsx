@@ -8,7 +8,6 @@ import {
   Scripts,
   ScrollRestoration,
 } from "@remix-run/react";
-import { MainMenu } from "./components/Mainmenu";
 
 export const links: LinksFunction = () => [
   ...(cssBundleHref ? [{ rel: "stylesheet", href: cssBundleHref }] : []),

@@ -1,0 +1,33 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+img {
+  max-width: 100%;
+}
+.container {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  padding: 2rem;
+  background: #fff;
+  height: 100vh;
+  font-family: sans-serif;
+}
+
+.hero-container {
+  display: grid;
+  place-content: center;
+  background: purple;
+  padding: 10px;
+}
+.title {
+  font-size: 2rem;
+  font-weight: bold;
+  color: blueviolet;
+  margin-top: 5rem;
+}
+
+.text-hero p {
+  font-weight: lighter;
+}

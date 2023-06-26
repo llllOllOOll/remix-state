@@ -1,9 +1,15 @@
 import { Form, useLoaderData, useNavigation } from "@remix-run/react";
 import { type ActionArgs, json } from "@remix-run/node";
-import type { LoaderArgs } from "@remix-run/node";
+import type { LinksFunction, LoaderArgs } from "@remix-run/node";
 import { createTodo, deleteTodo, getTodos, toggleTodo } from "~/todos.server";
 import { useRef } from "react";
 import { useFetcher } from "@remix-run/react";
+
+import styleTodos from "~/styles/todos.css";
+
+export const links: LinksFunction = () => {
+  return [{ rel: "stylesheet", href: styleTodos }];
+};
 
 export async function loader({ request }: LoaderArgs) {
   const todos = await getTodos(request);
@@ -36,40 +42,52 @@ export default function TodosPage() {
   };
 
   return (
-    <div>
-      <Form method="post">
-        <fieldset>
+    <div className="container">
+      <Form method="post" className="flex">
+        <div className="todo-input-wrap">
           <input type="hidden" name="id" />
           <input type="hidden" name="done" />
-          <div style={{ display: "inline" }}>
-            <label htmlFor="title">Title</label>{" "}
-            <input type="text" id="title" name="title" placeholder="Title" />
-          </div>{" "}
-          <button name="_action" value="create" type="submit">
-            Add
-          </button>
-        </fieldset>
+          <input
+            className="todo-input-add"
+            type="text"
+            id="title"
+            name="title"
+            placeholder="type your new task"
+          />
+        </div>
+        <button className="btn-add" name="_action" value="create" type="submit">
+          Add
+        </button>
       </Form>
+
       <ul>
         {todos.length ? (
           todos.map((todo) => (
             <li key={todo.id}>
-              <fetcher.Form method="post" style={{ display: "inline" }}>
-                <input type="hidden" name="id" value={todo.id} />
-                <input type="hidden" name="_action" value="toggle" />
-                <input
-                  onChange={handleToggle}
-                  type="checkbox"
-                  name="done"
-                  id="done"
-                  defaultChecked={todo.done}
-                />
-              </fetcher.Form>
-              {todo.title}{" "}
+              <div>
+                <fetcher.Form method="post" style={{ display: "inline" }}>
+                  <input type="hidden" name="id" value={todo.id} />
+                  <input type="hidden" name="_action" value="toggle" />
+                  <input
+                    className="form-input-checkbox"
+                    onChange={handleToggle}
+                    type="checkbox"
+                    name="done"
+                    id="done"
+                    defaultChecked={todo.done}
+                  />
+                </fetcher.Form>{" "}
+                <span className="todo-title"> {todo.title}</span>
+              </div>
               <Form method="post" style={{ display: "inline" }}>
                 <input type="hidden" name="id" value={todo.id} />
-                <button name="_action" value="delete" type="submit">
-                  x
+                <button
+                  className="btn-delete"
+                  name="_action"
+                  value="delete"
+                  type="submit"
+                >
+                  X
                 </button>
               </Form>
             </li>
